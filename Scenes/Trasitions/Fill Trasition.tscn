@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Trasitions/shaders/Fill.tres" type="Shader" id=1]
+[ext_resource path="res://Scenes/Trasitions/Fill Trasition.gd" type="Script" id=2]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/fill_amount = 1.0
+shader_param/fill_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fill_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Trasition_In"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fill_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Trasition_Out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/fill_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+
+[node name="Fill Trasition" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Fill" type="ColorRect" parent="."]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fill"]
+autoplay = "Trasition_Out"
+anims/RESET = SubResource( 3 )
+anims/Trasition_In = SubResource( 4 )
+anims/Trasition_Out = SubResource( 5 )
+
+[connection signal="animation_finished" from="Fill/AnimationPlayer" to="." method="on_animation_finished"]

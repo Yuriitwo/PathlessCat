@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Imagens/MainMenu_logo.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Imagens/MainMenu.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Fontes/monogram.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/Menus/Configs/back.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 77
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+font_data = ExtResource( 3 )
+
+[node name="Opcoes" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 640, 360 )
+texture = ExtResource( 2 )
+
+[node name="Botoes" type="Sprite" parent="."]
+position = Vector2( 632, 216 )
+scale = Vector2( 0.732258, 0.732258 )
+texture = ExtResource( 1 )
+
+[node name="back" type="Button" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 72.0
+margin_top = 592.0
+margin_right = 200.0
+margin_bottom = 660.0
+focus_mode = 0
+custom_fonts/font = SubResource( 1 )
+enabled_focus_mode = 0
+text = "BACK"
+flat = true
+script = ExtResource( 5 )
+
+[node name="Tween" type="Tween" parent="back"]
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = -24.0
+margin_right = 235.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.14902, 0.313726, 0.423529, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "FONT BY: datagoblin.itch.io"
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = 24.0
+margin_right = 218.0
+margin_bottom = 60.0
+custom_colors/font_color = Color( 0.14902, 0.313726, 0.423529, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "SPRITES BY: elthen.itch.io"
+
+[connection signal="mouse_entered" from="back" to="back" method="_on_back_mouse_entered"]
+[connection signal="mouse_exited" from="back" to="back" method="_on_back_mouse_exited"]
+[connection signal="pressed" from="back" to="back" method="_on_back_pressed"]

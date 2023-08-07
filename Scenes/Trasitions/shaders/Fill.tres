@@ -1,0 +1,24 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float fill_amount : hint_range(0.0, 1.0) = 0.0;
+uniform vec4 fill_color : hint_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+void vertex() {
+    // Nenhuma transformação adicional no vértice
+    // mas você pode personalizá-lo conforme necessário.
+}
+
+void fragment() {
+    // Obter as coordenadas de textura atuais
+    vec2 uv = SCREEN_UV;
+
+    // Aplicar a transição de preenchimento gradual
+    vec4 final_color = mix(fill_color, vec4(0.0), smoothstep(0.0, 1.0, fill_amount));
+
+    // Saída do fragmento com a cor resultante
+    COLOR = final_color;
+}
+"

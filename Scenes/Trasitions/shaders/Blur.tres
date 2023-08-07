@@ -1,0 +1,32 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform float blur_amount : hint_range(0.0, 10.0) = 2.0;
+uniform float intensity : hint_range(0.0, 1.0) = 1.0;
+
+void vertex() {
+    // No action needed here, but required for the shader to compile.
+}
+
+void fragment() {
+    vec2 uv = SCREEN_UV;
+    vec4 final_color = vec4(0.0);
+
+    float blur_size = blur_amount * intensity;
+    float total_weight = 0.0;
+
+    for (int i = -5; i <= 5; i++) {
+        for (int j = -5; j <= 5; j++) {
+            vec2 offset = vec2(float(i), float(j)) * 0.01 * blur_size;
+            vec4 color = textureLod(SCREEN_TEXTURE, uv + offset, 0.0);
+            float weight = 1.0 - length(vec2(float(i), float(j))) / 5.0;
+            total_weight += weight;
+            final_color += color * weight;
+        }
+    }
+
+    final_color /= total_weight;
+    COLOR = final_color;
+}"

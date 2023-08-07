@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Trasitions/shaders/Blur.tres" type="Shader" id=1]
+[ext_resource path="res://Scenes/Trasitions/Blur Trasition.gd" type="Script" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/blur_amount = 0.0
+shader_param/intensity = 0.791
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Trasition_In"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 3.81 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Trasition_Out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 3.651, 3.651, 0.0 ]
+}
+
+[node name="Blur Trasition" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Blur"]
+anims/RESET = SubResource( 4 )
+anims/Trasition_In = SubResource( 2 )
+anims/Trasition_Out = SubResource( 3 )
+
+[connection signal="animation_finished" from="Blur/AnimationPlayer" to="." method="on_animation_finished"]
