@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Pathless Cat.mp3-4b254dcb9877c1fb75095c972cc0cc5c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audios/Soundtrack/Pathless Cat.mp3"
+dest_files=[ "res://.import/Pathless Cat.mp3-4b254dcb9877c1fb75095c972cc0cc5c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
